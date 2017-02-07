@@ -1,6 +1,6 @@
 # Simple-MVC
 
-A simple PHP MVC (Model-View-Controller) framework. Provides a basic skeleton for creating a php website.
+A simple PHP MVC (Model-View-Controller) framework. Provides a basic skeleton for creating a php website. (Currently a work in progress - Beta Release expected for March 1st)
 
 # Features
 
