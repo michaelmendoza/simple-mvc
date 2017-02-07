@@ -1,0 +1,34 @@
+
+.nav-main {
+	background-color: #011948;
+	border-top: solid 1px #369;
+	border-bottom: solid 1px #369;
+	box-shadow: 0 1px 5px rgba(0,0,0,0.5);
+	-moz-box-shadow: 0 1px 5px rgba(0,0,0,0.5);
+	-webkit-box-shadow: 0 1px 5px rgba(0,0,0,0.5);
+	position: relative;
+	z-index: 10;	
+	display: block;
+	height: 38px;
+
+	ul {
+		list-style: none;
+		width: 940px;
+		margin: 0 auto;
+		padding: 0 32px;
+
+		ul { display: none; }
+	}
+
+	li {
+		float: left;
+	}
+
+	a {
+    padding: 10px 20px;
+    font-size: 14px;
+    display: block;
+    color: #eee;
+    text-decoration: none;		
+	}
+}

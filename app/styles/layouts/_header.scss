@@ -1,0 +1,31 @@
+
+.header {
+	background: url("../assets/header-bg.png") no-repeat scroll center top #025;
+  position: relative;
+  z-index: 500;
+  min-width: 1000px;
+
+  .top-bar {
+  	height: 90px;
+    padding: 0;
+    position: relative;
+    z-index: 500;
+    width: 940px;
+    margin: 0 auto;
+  }
+
+	.site-name {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    font-size: 36px;
+    font-family: "Palatino Linotype","Palatino",Times,"Times New Roman",serif;
+    font-weight: normal;
+
+    a {
+    	color: #fefefe;
+			text-decoration: none;
+    }
+	}
+}
+

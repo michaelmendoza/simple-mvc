@@ -1,0 +1,16 @@
+{
+  "name": "byu-mrirf",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "build": "sass --watch styles/app.scss:styles/app.css"
+  },
+  "author": "Michael Mendoza",
+  "license": "ISC",
+  "dependencies": {
+  },
+  "engines": {
+    "node": "6.5.0"
+  }
+}
