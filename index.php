@@ -84,6 +84,27 @@ foreach($controllers as $controller) {
 
 /*
  * ------------------------------------------------------
+ *  File Loader
+ * ------------------------------------------------------
+ */
+
+class Loader {
+	public static $files = array();
+
+	public static function load_class($filepath, $rootpath = null) {
+
+		$file_exists = isset(Loader::$files[$filepath]);
+
+		if(!$file_exists) {
+			Loader::$files[$filepath] = $filepath;
+			$rootpath = is_null($rootpath) ? APPPATH : $rootpath; 
+			include($rootpath.$filepath);
+		}
+	}
+}
+
+/*
+ * ------------------------------------------------------
  *  Nav Components
  * ------------------------------------------------------
  */
