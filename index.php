@@ -151,6 +151,10 @@ class Controller
 	public $footer = 'footer';
 	public $layout = 'layout';
 
+	public function loadModel($filename) {
+		Loader::load_class($filename);
+	}
+
 	public function loadView($view) {
 		// Get paths
 		$headerpath = LAYOUTPATH.$this->header.'.php';
@@ -179,20 +183,6 @@ include(CONTROLLERPATH.$routes[$route]);
 $controller = $route."controller";
 $controller = new $controller;
 $controller->index();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
