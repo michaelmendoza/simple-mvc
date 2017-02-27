@@ -84,22 +84,23 @@ foreach($controllers as $controller) {
 
 /*
  * ------------------------------------------------------
- *  File Loader
+ *  File Importer
  * ------------------------------------------------------
  */
 
-class Loader {
-	public static $files = array();
+/**
+ * import - loads files, and saves a list of class names loaded
+ */
+function import($class, $file, $path = null) {
+	static $_classes = array();
 
-	public static function load_class($filepath, $rootpath = null) {
+	$class = strtolower($class);
+	$class_exists = isset($_classes[$class]);
 
-		$file_exists = isset(Loader::$files[$filepath]);
-
-		if(!$file_exists) {
-			Loader::$files[$filepath] = $filepath;
-			$rootpath = is_null($rootpath) ? APPPATH : $rootpath; 
-			include($rootpath.$filepath);
-		}
+	if(!$class_exists) {
+		$_classes[$class] = $class;
+		$path = is_null($path) ? APPPATH : $path;
+		include_once($path.$file);
 	}
 }
 
@@ -151,8 +152,10 @@ class Controller
 	public $footer = 'footer';
 	public $layout = 'layout';
 
-	public function loadModel($filename) {
-		Loader::load_class($filename);
+	public function loadModel($class, $file, $param = null) {
+		import($class, $file);
+		$instance = isset($param) ? new $class($param) : new $class();
+		return $instance;
 	}
 
 	public function loadView($view) {
