@@ -97,16 +97,20 @@ class Router {
 		}
 	}
 
-	function getRoute() {
-		return $this->route;
-	}
+	function goToRoute() {
 
-	function getRoutes() {
-		return $this->routes;
-	}
+		// Access controller for route
+		include(CONTROLLERPATH.$this->routes[$this->route]);
 
-	function getAction() {
-		return $this->action;
+		// Load
+		$controller = $this->route."controller";
+		$controller = new $controller;
+
+		$action = $this->action;
+		if(is_null($this->action))
+			$controller->index();
+		else
+			$controller->$action();
 	}
 }
 
@@ -166,8 +170,6 @@ class NavLink {
 	}
 }
 
-include(APPPATH.'models/nav.php');
-
 /*
  * ------------------------------------------------------
  *  Get Controller from Route
@@ -179,6 +181,10 @@ class Controller
 	public $header = 'header';
 	public $footer = 'footer';
 	public $layout = 'layout';
+
+	function __construct() {
+		include_once(APPPATH.'models/nav.php');
+	}
 
 	public function loadModel($class, $file, $param = null) {
 		import($class, $file);
@@ -203,21 +209,15 @@ class Controller
 }
 
 $router = new Router();
-$route = $router->getRoute();
-$routes = $router->getRoutes();
+$router->goToRoute();
 
-// Access controller for route
-include(CONTROLLERPATH.$routes[$route]);
 
-/*
- * ------------------------------------------------------
- *  Load Page with Controller
- * ------------------------------------------------------
- */
 
-$controller = $route."controller";
-$controller = new $controller;
-$controller->index();
+
+
+
+
+
 
 
 
