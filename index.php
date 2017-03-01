@@ -65,21 +65,49 @@ if(!isset($_SESSION)) {
  * ------------------------------------------------------
  */
 
-// Get route
-$route = explode('/', $_SERVER['REQUEST_URI']);
+class Router {
 
-// Set default route
-if(count($route) < 3)
-	$route = 'home';		
-else
-	$route = $route[2];
+	private $uri;
+	private $route;
+	private $routes;	
+	private $action;
 
-// Get availible routes
-$routes = array();
-$controllers = glob(CONTROLLERPATH.'*.*');
-foreach($controllers as $controller) {
-	$filename = pathinfo($controller)['filename'];
-	$routes[$filename] = pathinfo($controller)['basename'];
+	function __construct() {
+
+		// Get parse uri
+		$this->uri = explode('/', $_SERVER['REQUEST_URI']);
+
+		// Set action
+		$this->action = null;
+		if(count($this->uri) > 2)
+			$this->action = $this->uri[2];
+
+		// Set route
+		if($this->uri[1] == '')
+			$this->route = 'home';		
+		else
+			$this->route = $this->uri[1];
+
+		// Get availible routes
+		$this->routes = array();
+		$controllers = glob(CONTROLLERPATH.'*.*');
+		foreach($controllers as $controller) {
+			$filename = pathinfo($controller)['filename'];
+			$this->routes[$filename] = pathinfo($controller)['basename'];
+		}
+	}
+
+	function getRoute() {
+		return $this->route;
+	}
+
+	function getRoutes() {
+		return $this->routes;
+	}
+
+	function getAction() {
+		return $this->action;
+	}
 }
 
 /*
@@ -158,7 +186,7 @@ class Controller
 		return $instance;
 	}
 
-	public function loadView($view) {
+	public function loadView($view, $data = null) {
 		// Get paths
 		$headerpath = LAYOUTPATH.$this->header.'.php';
 		$pagepath = PAGESPATH.$view.'.php';
@@ -173,6 +201,10 @@ class Controller
 		include($layoutpath);
 	}
 }
+
+$router = new Router();
+$route = $router->getRoute();
+$routes = $router->getRoutes();
 
 // Access controller for route
 include(CONTROLLERPATH.$routes[$route]);
